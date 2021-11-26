@@ -10,7 +10,9 @@ class AccountInvoice(models.Model):
 
     delivery_note = fields.Boolean(string="Delivery Note",)
     doc_title = fields.Char(string="Doc Title",)
-    salesman_id = fields.Many2one("res.users", related="purchase_id.user_id", string="Sales Person")
+    salesman_id = fields.Many2one(
+        comodel_name="res.users", string="Salesperson", track_visibility="onchange"
+    )
 
     @api.onchange("partner_id")
     def onchange_partner(self):
@@ -29,3 +31,7 @@ class AccountInvoice(models.Model):
                         self.doc_title += title
                     else:
                         self.doc_title += ", " + title
+            for user_id in purchase_ids.mapped("user_id"):
+                self.salesman_id = user_id
+            for currency_id in purchase_ids.mapped("currency_id"):
+                self.currency_id = currency_id
