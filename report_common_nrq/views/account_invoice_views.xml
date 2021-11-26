@@ -17,6 +17,9 @@
                 expr="//page[@name='other_info']/group/group/field[@name='date_due']"
                 position="replace"
             />
+            <xpath expr="//field[@name='currency_id']" position="before">
+                <field name="salesman_id" />
+            </xpath>
         </field>
     </record>
     <record id="invoice_tree" model="ir.ui.view">

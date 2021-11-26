@@ -5,11 +5,12 @@
 from odoo import api, fields, models
 
 
-class ResPartner(models.Model):
+class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     delivery_note = fields.Boolean(string="Delivery Note",)
     doc_title = fields.Char(string="Doc Title",)
+    salesman_id = fields.Many2one(string="Sales Person", related="purchase_id.user_id")
 
     @api.onchange("partner_id")
     def onchange_partner(self):
