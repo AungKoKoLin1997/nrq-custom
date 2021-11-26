@@ -10,7 +10,7 @@ class AccountInvoice(models.Model):
 
     delivery_note = fields.Boolean(string="Delivery Note",)
     doc_title = fields.Char(string="Doc Title",)
-    salesman_id = fields.Many2one(string="Sales Person", related="purchase_id.user_id")
+    salesman_id = fields.Many2one("res.users", related="purchase_id.user_id", string="Sales Person")
 
     @api.onchange("partner_id")
     def onchange_partner(self):
